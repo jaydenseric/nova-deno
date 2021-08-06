@@ -1,0 +1,198 @@
+{
+  "identifier": "jaydenseric.deno",
+  "name": "Deno",
+  "organization": "Jayden Seric",
+  "description": "Integrates the Deno JavaScript/TypeScript runtime and tools.",
+  "version": "",
+  "license": "MIT",
+  "repository": "https://github.com/jaydenseric/nova-deno",
+  "homepage": "https://github.com/jaydenseric/nova-deno",
+  "bugs": "https://github.com/jaydenseric/nova-deno/issues",
+  "funding": "https://github.com/sponsors/jaydenseric",
+  "categories": [
+    "commands",
+    "completions",
+    "formatters",
+    "issues",
+    "languages"
+  ],
+  "min_runtime": "5",
+  "entitlements": {
+    "process": true,
+    "filesystem": "readwrite"
+  },
+  "main": "main.js",
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:json",
+    "onLanguage:markdown"
+  ],
+  "config": [
+    {
+      "title": "Import IntelliSense",
+      "description": "See the readme section “Import IntelliSense”.",
+      "type": "section",
+      "children": [
+        {
+          "title": "Reset import IntelliSense hosts",
+          "description": "Resets the global configuration option `deno.suggest.imports.hosts` to allow fresh auto-discovery of hosts that support JavaScript/TypeScript import IntelliSense. The host `https://deno.land` is enabled by default.",
+          "type": "command",
+          "command": "jaydenseric.deno.commands.resetDenoSuggestImportsHosts"
+        }
+      ]
+    }
+  ],
+  "configWorkspace": [
+    {
+      "key": "jaydenseric.deno.formatOnSave",
+      "title": "Format on save",
+      "description": "Deno format JavaScript, TypeScript, JSON, and Markdown syntax documents when saved.",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "title": "Deno language server",
+      "description": "The Deno language server enhances editing JavaScript, TypeScript, JSON, and Markdown syntax.",
+      "link": "https://github.com/denoland/deno/blob/main/cli/lsp/README.md",
+      "type": "section",
+      "children": [
+        {
+          "key": "deno.enable",
+          "title": "Enable",
+          "description": "Enable Deno for this project.",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "key": "deno.unstable",
+          "title": "Unstable",
+          "description": "Enable the unstable Deno API.",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "key": "deno.lint",
+          "title": "Lint",
+          "description": "Enable Deno linting.",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "key": "deno.importMap",
+          "title": "Import map",
+          "description": "Source of an import map for the project JavaScript and TypeScript modules; a URL or an absolute or project relative file path.",
+          "link": "https://deno.land/manual/linking_to_external_code/import_maps",
+          "type": "string",
+          "placeholder": "development.importmap"
+        },
+        {
+          "key": "deno.config",
+          "title": "TypeScript config",
+          "description": "Source of a TypeScript config JSON file for the project JavaScript and TypeScript modules; an absolute or project relative file path.",
+          "link": "https://deno.land/manual/typescript/configuration",
+          "type": "path",
+          "placeholder": "tsconfig.json",
+          "filetype": ["json"]
+        },
+        {
+          "title": "Code lens",
+          "description": "Code lens features.",
+          "type": "section",
+          "children": [
+            {
+              "key": "deno.codeLens.implementations",
+              "title": "Implementations",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.codeLens.references",
+              "title": "References",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.codeLens.referencesAllFunctions",
+              "title": "All function references",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.codeLens.test",
+              "title": "Test",
+              "type": "boolean",
+              "default": true
+            }
+          ]
+        },
+        {
+          "title": "Suggestions",
+          "description": "Code suggestions/completions.",
+          "type": "section",
+          "children": [
+            {
+              "key": "deno.suggest.completeFunctionCalls",
+              "title": "Complete function calls",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.suggest.names",
+              "title": "Names",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.suggest.path",
+              "title": "Paths",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.suggest.autoImports",
+              "title": "Auto imports",
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "key": "deno.suggest.imports.autoDiscover",
+              "title": "Auto-discover import IntelliSense",
+              "description": "Automatically discover while typing a JavaScript/TypeScript import module specifier if the host supports import IntelliSense, triggering a notification to enable or disable it. See the readme section “Import IntelliSense”.",
+              "type": "boolean",
+              "default": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "commands": {
+    "extensions": [
+      {
+        "title": "Reset Deno import IntelliSense hosts",
+        "command": "jaydenseric.deno.commands.resetDenoSuggestImportsHosts"
+      },
+      {
+        "title": "Restart Deno language client",
+        "command": "jaydenseric.deno.commands.restartDenoLanguageClient"
+      }
+    ],
+    "editor": [
+      {
+        "title": "Deno format document",
+        "command": "jaydenseric.deno.commands.denoFormatDocument",
+        "shortcut": "shift-option-f",
+        "when": "editorHasFocus",
+        "filters": {
+          "syntaxes": [
+            "javascript",
+            "typescript",
+            "json",
+            "markdown"
+          ]
+        }
+      }
+    ]
+  }
+}

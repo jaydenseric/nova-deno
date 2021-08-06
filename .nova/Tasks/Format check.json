@@ -1,0 +1,10 @@
+{
+  "actions": {
+    "run": {
+      "enabled": true,
+      "script": "deno fmt --check"
+    }
+  },
+  "identifier": "C48A7009-D163-4FC2-8E0D-277096437715",
+  "openLogOnRun": "fail"
+}

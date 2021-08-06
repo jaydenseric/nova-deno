@@ -1,0 +1,5 @@
+{
+  "deno.unstable": true,
+  "jaydenseric.deno.formatOnSave": false,
+  "workspace.name": "nova-deno"
+}

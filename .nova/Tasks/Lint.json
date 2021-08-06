@@ -1,0 +1,10 @@
+{
+  "actions": {
+    "run": {
+      "enabled": true,
+      "script": "deno lint"
+    }
+  },
+  "identifier": "EFFF6E8F-76D7-4C28-B84E-7395F6743C2A",
+  "openLogOnRun": "fail"
+}
