@@ -7,7 +7,7 @@ JavaScript/[TypeScript](https://www.typescriptlang.org)
 
 This is the readme for developing the extension. The readme for using the
 extension can be seen at
-[`Deno.novaextension/readme.md`](Deno.novaextension/readme.md).
+[`Deno.novaextension/README.md`](Deno.novaextension/README.md).
 
 ## Requirements
 
