@@ -127,21 +127,6 @@ exports.activate = asyncCallback(async () => {
         lint: nova.workspace.config.get("deno.lint", "boolean"),
         importMap: nova.workspace.config.get("deno.importMap", "string"),
         config: nova.workspace.config.get("deno.config", "string"),
-        codeLens: {
-          implementations: nova.workspace.config.get(
-            "deno.codeLens.implementations",
-            "boolean",
-          ),
-          references: nova.workspace.config.get(
-            "deno.codeLens.references",
-            "boolean",
-          ),
-          referencesAllFunctions: nova.workspace.config.get(
-            "deno.codeLens.referencesAllFunctions",
-            "boolean",
-          ),
-          test: nova.workspace.config.get("deno.codeLens.test", "boolean"),
-        },
         suggest: {
           completeFunctionCalls: nova.workspace.config.get(
             "deno.suggest.completeFunctionCalls",

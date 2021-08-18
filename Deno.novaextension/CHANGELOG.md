@@ -1,5 +1,12 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Patch
+
+- Removed Deno language server code lens related workspace configuration as Nova
+  doesn’t appear to support code lens.
+
 ## 1.0.1
 
 ### Patch

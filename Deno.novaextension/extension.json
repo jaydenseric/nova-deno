@@ -96,37 +96,6 @@
           "filetype": ["json"]
         },
         {
-          "title": "Code lens",
-          "description": "Code lens features.",
-          "type": "section",
-          "children": [
-            {
-              "key": "deno.codeLens.implementations",
-              "title": "Implementations",
-              "type": "boolean",
-              "default": true
-            },
-            {
-              "key": "deno.codeLens.references",
-              "title": "References",
-              "type": "boolean",
-              "default": true
-            },
-            {
-              "key": "deno.codeLens.referencesAllFunctions",
-              "title": "All function references",
-              "type": "boolean",
-              "default": true
-            },
-            {
-              "key": "deno.codeLens.test",
-              "title": "Test",
-              "type": "boolean",
-              "default": true
-            }
-          ]
-        },
-        {
           "title": "Suggestions",
           "description": "Code suggestions/completions.",
           "type": "section",
