@@ -1,5 +1,12 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Minor
+
+- Implemented the `deno.cache` “Deno cache” command, progressing
+  [#5](https://github.com/jaydenseric/nova-deno/issues/5).
+
 ## 1.0.2
 
 ### Patch

@@ -149,6 +149,17 @@
     ],
     "editor": [
       {
+        "title": "Deno cache",
+        "command": "deno.cache",
+        "when": "editorHasFocus",
+        "filters": {
+          "syntaxes": [
+            "javascript",
+            "typescript"
+          ]
+        }
+      },
+      {
         "title": "Deno format document",
         "command": "jaydenseric.deno.commands.denoFormatDocument",
         "shortcut": "shift-option-f",

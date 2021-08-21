@@ -3,13 +3,13 @@ const notify = require("./notify.js");
 
 /**
  * Registers a Nova command.
- * @param {string} id ID for the command for use in the Nova notification identifier if the Nova command callback errors.
+ * @param {string} identifier Nova command identifier, also used in the Nova notification identifier if the Nova command callback errors.
  * @param {function} callback Nova command callback.
  * @param {string} errorDescription Error description for use in the Nova notification body text if the Nova command callback errors. Shouldn’t be dynamic as it’s localized.
  */
-function registerCommand(id, callback, errorDescription) {
-  if (typeof id !== "string") {
-    throw new TypeError("Argument 1 `id` must be a string.");
+function registerCommand(identifier, callback, errorDescription) {
+  if (typeof identifier !== "string") {
+    throw new TypeError("Argument 1 `identifier` must be a string.");
   }
 
   if (typeof callback !== "function") {
@@ -21,13 +21,13 @@ function registerCommand(id, callback, errorDescription) {
   }
 
   nova.commands.register(
-    `jaydenseric.deno.commands.${id}`,
+    identifier,
     asyncCallback(async (...args) => {
       try {
         await callback(...args);
       } catch (error) {
         await notify(
-          `jaydenseric.deno.notifications.commands.${id}.error`,
+          `${identifier}.notifications.error`,
           nova.localize("Command error"),
           `${nova.localize(errorDescription)}\n\n${error}`,
         );

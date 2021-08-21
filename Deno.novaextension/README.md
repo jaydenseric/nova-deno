@@ -75,6 +75,16 @@ Available via:
 - [Nova][Nova] menu bar option _**Extensions → Deno → Restart Deno language
   client**_.
 
+#### Deno cache
+
+Instructs Deno to attempt to cache any dependencies of the module in the focused
+editor.
+
+Available when the focused editor has a JavaScript or TypeScript syntax, via:
+
+- [Nova command palette][Nova command palettes], entering `Deno cache`.
+- [Nova][Nova] menu bar option _**Editor → Deno cache**_.
+
 #### Deno format document
 
 [Deno formats](https://deno.land/manual/tools/formatter) the focused editor.

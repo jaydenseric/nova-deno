@@ -40,19 +40,52 @@ const pendingDenoSuggestImportsHostUpdates = new Set();
 let languageClient;
 
 registerCommand(
-  "restartDenoLanguageClient",
+  "jaydenseric.deno.commands.restartDenoLanguageClient",
   () => restartLanguageClient(languageClient),
   "Restart Deno language client error:",
 );
 
 registerCommand(
-  "resetDenoSuggestImportsHosts",
+  "jaydenseric.deno.commands.resetDenoSuggestImportsHosts",
   () => resetDenoSuggestImportsHosts(),
   "Reset Deno import IntelliSense hosts error:",
 );
 
+// This command can be triggered either directly by the user (e.g. via the Nova
+// command palette), or by the Deno language server when the user activates the
+// Deno cache code action on an uncached import. The latter way isn’t working,
+// likely due to a Nova bug, see:
+// https://github.com/jaydenseric/nova-deno/issues/5
 registerCommand(
-  "denoFormatDocument",
+  "deno.cache",
+  async (
+    textEditor,
+    // The import module specifier URI to cache, provided by the Deno language
+    // server when this command is triggered via the Deno cache code action.
+    // See:
+    // https://github.com/denoland/deno/blob/main/cli/lsp/README.md#commands
+    uri,
+  ) => {
+    const params = {
+      referrer: {
+        uri: textEditor.document.uri,
+      },
+      uris: [],
+    };
+
+    if (uri) params.uris.push({ uri });
+
+    // The Deno language server responds to `deno/cache` requests the same if
+    // the caching succeeds or fails (e.g. due to no internet connection),
+    // meaning the user can’t be notified of caching errors. See:
+    // https://github.com/denoland/deno/issues/11796
+    await languageClient.sendRequest("deno/cache", params);
+  },
+  "Deno cache error:",
+);
+
+registerCommand(
+  "jaydenseric.deno.commands.denoFormatDocument",
   (textEditor) => denoFormatTextEditor(languageClient, textEditor),
   "Deno format document error:",
 );
