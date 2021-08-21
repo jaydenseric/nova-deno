@@ -3,7 +3,7 @@
   "name": "Deno",
   "organization": "Jayden Seric",
   "description": "Integrates the Deno JavaScript/TypeScript runtime and tools.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "license": "MIT",
   "repository": "https://github.com/jaydenseric/nova-deno",
   "homepage": "https://github.com/jaydenseric/nova-deno",
