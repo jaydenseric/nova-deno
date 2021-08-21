@@ -7,6 +7,10 @@
 - Implemented the `deno.cache` “Deno cache” command, progressing
   [#5](https://github.com/jaydenseric/nova-deno/issues/5).
 
+### Patch
+
+- Updated issue information in the extension readme and source comments.
+
 ## 1.0.2
 
 ### Patch

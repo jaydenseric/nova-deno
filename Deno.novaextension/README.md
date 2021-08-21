@@ -16,15 +16,14 @@ configuration:
 - JSON
 - Markdown
 
-JSX and TSX will be supported once
-[the issue of Nova using non-standard LSP syntax
-identifiers](https://devforum.nova.app/t/how-to-workaround-nova-syntax-ids-differing-with-a-language-server/1100)
-is resolved.
+JSX and TSX support will be added once [Deno][Deno] supports the same syntax
+identifiers as [Nova][Nova], see
+[#1](https://github.com/jaydenseric/nova-deno/issues/1).
 
 > **⚠️ Warning:** [Nova][Nova] and the
 > [Deno language server][Deno language server] are unstable. Document changes
-> can be lost if [Nova][Nova] crashes,
-> [particularly when formatting on save](https://devforum.nova.app/t/texteditoredit-replace-causing-hard-crashes-in-nova-7-2/1093).
+> can be lost if [Nova][Nova] crashes, particularly when formatting on save. See
+> [#3](https://github.com/jaydenseric/nova-deno/issues/3).
 
 ### Import IntelliSense
 
