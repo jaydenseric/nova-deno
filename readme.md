@@ -13,7 +13,7 @@ extension can be seen at
 
 - macOS v10.15.4+, for modern JavaScript syntax support in JavaScriptCore.
 - [Nova][Nova] v5+.
-- The [Deno CLI](https://deno.land/#installation).
+- [Deno CLI](https://deno.land/#installation) v1.13.2+.
 
 ## Manual testing
 

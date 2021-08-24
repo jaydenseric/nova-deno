@@ -1,5 +1,11 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Patch
+
+- Documented the minimum required Deno version (v1.13.2).
+
 ## 1.2.0
 
 ### Minor
