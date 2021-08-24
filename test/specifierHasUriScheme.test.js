@@ -1,8 +1,8 @@
 import {
   assertStrictEquals,
   assertThrows,
-} from "https://deno.land/std@0.105.0/testing/asserts.ts";
-import { createRequire } from "https://deno.land/std@0.105.0/node/module.ts";
+} from "https://deno.land/std@0.106.0/testing/asserts.ts";
+import { createRequire } from "https://deno.land/std@0.106.0/node/module.ts";
 
 const require = createRequire(import.meta.url);
 
@@ -67,7 +67,7 @@ Deno.test(
     assertStrictEquals(specifierHasUriScheme("foo.js"), false);
     assertStrictEquals(specifierHasUriScheme("./foo.js"), false);
     assertStrictEquals(
-      specifierHasUriScheme("https://deno.land/std@0.105.0/testing/asserts.ts"),
+      specifierHasUriScheme("https://deno.land/std@0.106.0/testing/asserts.ts"),
       true,
     );
   },

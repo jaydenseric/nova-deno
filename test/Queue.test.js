@@ -2,8 +2,8 @@ import {
   assert,
   assertRejects,
   assertStrictEquals,
-} from "https://deno.land/std@0.105.0/testing/asserts.ts";
-import { createRequire } from "https://deno.land/std@0.105.0/node/module.ts";
+} from "https://deno.land/std@0.106.0/testing/asserts.ts";
+import { createRequire } from "https://deno.land/std@0.106.0/node/module.ts";
 
 const require = createRequire(import.meta.url);
 
