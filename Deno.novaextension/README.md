@@ -12,13 +12,11 @@ support linting, type checking, and IntelliSense), depending on the
 configuration:
 
 - JavaScript
+- JSX
 - [TypeScript][TypeScript]
+- TSX
 - JSON
 - Markdown
-
-JSX and TSX support will be added once [Deno][Deno] supports the same syntax
-identifiers as [Nova][Nova], see
-[#1](https://github.com/jaydenseric/nova-deno/issues/1).
 
 > **⚠️ Warning:** [Nova][Nova] and the
 > [Deno language server][Deno language server] are unstable. Document changes
@@ -79,7 +77,8 @@ Available via:
 Instructs Deno to attempt to cache any dependencies of the module in the focused
 editor.
 
-Available when the focused editor has a JavaScript or TypeScript syntax, via:
+Available when the focused editor has a JavaScript, JSX, TypeScript, or TSX
+syntax, via:
 
 - [Nova command palette][Nova command palettes], entering `Deno cache`.
 - [Nova][Nova] menu bar option _**Editor → Deno cache**_.

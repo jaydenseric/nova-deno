@@ -12,15 +12,15 @@ const restartLanguageClient = require("./restartLanguageClient.js");
 /**
  * LSP syntax identifiers supported by both Nova and the Deno language server.
  * Note that Nova uses `jsx`/`tsx` whereas the LSP recommends
- * `javascriptreact`/`typescriptreact`. JSX and TSX support will be added once
- * Deno supports the same syntax identifiers as Nova.
+ * `javascriptreact`/`typescriptreact`.
  *
  * - [LSP specification recommended syntax identifies](https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocumentItem).
- * - [GitHub issue #1](https://github.com/jaydenseric/nova-deno/issues/1).
  */
 const denoLspSyntaxes = [
   "javascript",
+  "jsx",
   "typescript",
+  "tsx",
   "json",
   "markdown",
 ];

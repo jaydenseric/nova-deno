@@ -1,5 +1,12 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Minor
+
+- Added support for JSX and TSX syntax, fixing
+  [#1](https://github.com/jaydenseric/nova-deno/issues/1).
+
 ## 1.1.0
 
 ### Minor

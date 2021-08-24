@@ -24,7 +24,9 @@
   "main": "main.js",
   "activationEvents": [
     "onLanguage:javascript",
+    "onLanguage:jsx",
     "onLanguage:typescript",
+    "onLanguage:tsx",
     "onLanguage:json",
     "onLanguage:markdown"
   ],
@@ -47,13 +49,13 @@
     {
       "key": "jaydenseric.deno.formatOnSave",
       "title": "Format on save",
-      "description": "Deno format JavaScript, TypeScript, JSON, and Markdown syntax documents when saved.",
+      "description": "Deno format JavaScript, JSX, TypeScript, TSX, JSON, and Markdown syntax documents when saved.",
       "type": "boolean",
       "default": true
     },
     {
       "title": "Deno language server",
-      "description": "The Deno language server enhances editing JavaScript, TypeScript, JSON, and Markdown syntax.",
+      "description": "The Deno language server enhances editing JavaScript, JSX, TypeScript, TSX, JSON, and Markdown syntax.",
       "link": "https://github.com/denoland/deno/blob/main/cli/lsp/README.md",
       "type": "section",
       "children": [
@@ -155,7 +157,9 @@
         "filters": {
           "syntaxes": [
             "javascript",
-            "typescript"
+            "jsx",
+            "typescript",
+            "tsx"
           ]
         }
       },
@@ -167,7 +171,9 @@
         "filters": {
           "syntaxes": [
             "javascript",
+            "jsx",
             "typescript",
+            "tsx",
             "json",
             "markdown"
           ]
