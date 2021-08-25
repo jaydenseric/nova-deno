@@ -1,5 +1,14 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Patch
+
+- Removed the readme warning that document changes can be lost if Nova crashes
+  (particularly when formatting on save) as Nova
+  [v7.3](https://nova.app/releases/#v7.3) is more stable, closing
+  [#3](https://github.com/jaydenseric/nova-deno/issues/3).
+
 ## 1.2.1
 
 ### Patch

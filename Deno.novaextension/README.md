@@ -18,11 +18,6 @@ configuration:
 - JSON
 - Markdown
 
-> **⚠️ Warning:** [Nova][Nova] and the
-> [Deno language server][Deno language server] are unstable. Document changes
-> can be lost if [Nova][Nova] crashes, particularly when formatting on save. See
-> [#3](https://github.com/jaydenseric/nova-deno/issues/3).
-
 ### Import IntelliSense
 
 The [Deno language server][Deno language server] can provide
