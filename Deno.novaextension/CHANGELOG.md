@@ -1,6 +1,6 @@
 # Nova Deno extension changelog
 
-## Next
+## 1.2.3
 
 ### Patch
 
