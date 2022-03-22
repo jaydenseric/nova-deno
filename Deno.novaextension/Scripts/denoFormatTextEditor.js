@@ -1,3 +1,7 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
+/** @type {typeof import("./applyLspTextEdits.js")} */
 const applyLspTextEdits = require("./applyLspTextEdits.js");
 
 /**
@@ -19,20 +23,22 @@ async function denoFormatTextEditor(languageClient, textEditor) {
     );
   }
 
-  const textEdits = await languageClient.sendRequest(
-    "textDocument/formatting",
-    {
-      textDocument: {
-        uri: textEditor.document.uri,
+  const result =
+    /** @type {Array<import("./types.js").LspTextEdit> | null} */
+    (await languageClient.sendRequest(
+      "textDocument/formatting",
+      {
+        textDocument: {
+          uri: textEditor.document.uri,
+        },
+        options: {
+          insertSpaces: textEditor.softTabs,
+          tabSize: textEditor.tabLength,
+        },
       },
-      options: {
-        insertSpaces: textEditor.softTabs === 1,
-        tabSize: textEditor.tabLength,
-      },
-    },
-  );
+    ));
 
-  if (textEdits) await applyLspTextEdits(textEditor, textEdits);
+  if (result) await applyLspTextEdits(textEditor, result);
 }
 
 module.exports = denoFormatTextEditor;

@@ -1,11 +1,12 @@
-import {
-  assertStrictEquals,
-  assertThrows,
-} from "https://deno.land/std@0.106.0/testing/asserts.ts";
-import { createRequire } from "https://deno.land/std@0.106.0/node/module.ts";
+// @ts-check
+/// <reference lib="deno.window" />
+
+import { assertStrictEquals, assertThrows } from "std/testing/asserts.ts";
+import { createRequire } from "std/node/module.ts";
 
 const require = createRequire(import.meta.url);
 
+/** @type {typeof import("../Deno.novaextension/Scripts/specifierHasUriScheme.js")} */
 const specifierHasUriScheme = require(
   "../Deno.novaextension/Scripts/specifierHasUriScheme.js",
 );
@@ -15,7 +16,10 @@ Deno.test(
   () => {
     assertThrows(
       () => {
-        specifierHasUriScheme(true);
+        specifierHasUriScheme(
+          // @ts-expect-error Testing invalid.
+          true,
+        );
       },
       TypeError,
       "Argument 1 `specifier` must be a string.",

@@ -1,11 +1,16 @@
+// @ts-check
+
+/** @type {typeof import("./reportError.js")} */
 const reportError = require("./reportError.js");
 
 /**
  * Wraps an async callback function to ensure it’s errors are reported, to avoid
  * a silent failure when using an async callback with a Nova function expecting
  * a sync callback.
- * @param {function} callback Callback to wrap.
- * @returns {function} Wrapped callback.
+ * @template {Array<unknown>} Args
+ * @template {unknown} Resolves
+ * @param {(...args: Args) => Promise<Resolves>} callback Callback to wrap.
+ * @returns {(...args: Args) => Promise<Resolves | void>}
  */
 function asyncCallback(callback) {
   if (typeof callback !== "function") {

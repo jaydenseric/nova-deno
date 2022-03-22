@@ -1,6 +1,7 @@
-// The Deno LSP currently doesn’t support importing types within JSDoc like
-// TypeScript does, see:
-// https://github.com/denoland/deno/issues/11362
+// @ts-check
+
+// Prevent a TypeScript error when importing this module in a JSDoc type.
+module.exports = {};
 
 /**
  * LSP text document position.

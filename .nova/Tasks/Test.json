@@ -2,7 +2,7 @@
   "actions": {
     "run": {
       "enabled": true,
-      "script": "deno test --allow-read --unstable"
+      "script": "deno test --allow-read --import-map=importMap.json"
     }
   },
   "identifier": "567C21BF-BF6D-4176-B683-249D0012CBB3",

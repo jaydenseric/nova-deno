@@ -1,11 +1,20 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
+/** @type {typeof import("./asyncCallback.js")} */
 const asyncCallback = require("./asyncCallback.js");
+
+/** @type {typeof import("./notify.js")} */
 const notify = require("./notify.js");
 
 /**
  * Registers a Nova command.
- * @param {string} identifier Nova command identifier, also used in the Nova notification identifier if the Nova command callback errors.
+ * @param {string} identifier Nova command identifier, also used in the Nova
+ *   notification identifier if the Nova command callback errors.
  * @param {function} callback Nova command callback.
- * @param {string} errorDescription Error description for use in the Nova notification body text if the Nova command callback errors. Shouldn’t be dynamic as it’s localized.
+ * @param {string} errorDescription Error description for use in the Nova
+ *   notification body text if the Nova command callback errors. Shouldn’t be
+ *   dynamic as it’s localized.
  */
 function registerCommand(identifier, callback, errorDescription) {
   if (typeof identifier !== "string") {

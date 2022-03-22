@@ -1,3 +1,6 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
 /**
  * Converts a LSP text document range to a Nova text document range.
  *

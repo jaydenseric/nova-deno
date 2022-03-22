@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Checks if a specifier has a URL scheme. Deno specifies can be either a URL or
  * file path.

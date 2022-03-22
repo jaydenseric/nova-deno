@@ -1,12 +1,19 @@
+// @ts-check
+/// <reference lib="deno.window" />
+
 import {
   assert,
   assertRejects,
   assertStrictEquals,
-} from "https://deno.land/std@0.106.0/testing/asserts.ts";
-import { createRequire } from "https://deno.land/std@0.106.0/node/module.ts";
+} from "std/testing/asserts.ts";
+import { createRequire } from "std/node/module.ts";
 
 const require = createRequire(import.meta.url);
 
+/** @type {typeof import("../Deno.novaextension/Scripts/Defer.js")} */
+const Defer = require("../Deno.novaextension/Scripts/Defer.js");
+
+/** @type {typeof import("../Deno.novaextension/Scripts/Queue.js")} */
 const Queue = require("../Deno.novaextension/Scripts/Queue.js");
 
 Deno.test(
@@ -26,7 +33,11 @@ Deno.test(
     const queue = new Queue();
 
     await assertRejects(
-      () => queue.add(true),
+      () =>
+        queue.add(
+          // @ts-expect-error Testing invalid.
+          true,
+        ),
       TypeError,
       "Argument 1 `task` must be a function.",
     );
@@ -118,13 +129,11 @@ Deno.test(
 
     assertStrictEquals(queue.queue.size, 0);
 
+    /** @type {boolean} */
     let taskAEnded;
 
     // Delay task A ending until after task B is queued.
-    let resolveTaskADelay;
-    const taskADelay = new Promise((resolve) => {
-      resolveTaskADelay = resolve;
-    });
+    const { promise: taskADelay, resolve: resolveTaskADelay } = new Defer();
 
     const resultAPromise = queue.add(async () => {
       await taskADelay;
@@ -159,10 +168,7 @@ Deno.test(
     assertStrictEquals(queue.queue.size, 0);
 
     // Delay task A failing until after task B is queued.
-    let resolveTaskADelay;
-    const taskADelay = new Promise((resolve) => {
-      resolveTaskADelay = resolve;
-    });
+    const { promise: taskADelay, resolve: resolveTaskADelay } = new Defer();
 
     const errorMessage = "Task error.";
     const resultAPromise = queue.add(async () => {

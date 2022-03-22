@@ -1,12 +1,30 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
+/** @type {typeof import("./asyncCallback.js")} */
 const asyncCallback = require("./asyncCallback.js");
+
+/** @type {typeof import("./denoFormatTextEditor.js")} */
 const denoFormatTextEditor = require("./denoFormatTextEditor.js");
+
+/** @type {typeof import("./notify.js")} */
 const notify = require("./notify.js");
+
+/** @type {typeof import("./registerCommand.js")} */
 const registerCommand = require("./registerCommand.js");
+
+/** @type {typeof import("./setNovaGlobalConfigMapEntry.js")} */
 const setNovaGlobalConfigMapEntry = require("./setNovaGlobalConfigMapEntry.js");
+
+/** @type {typeof import("./specifierHasUriScheme.js")} */
 const specifierHasUriScheme = require("./specifierHasUriScheme.js");
+
+/** @type {typeof import("./resetDenoSuggestImportsHosts.js")} */
 const resetDenoSuggestImportsHosts = require(
   "./resetDenoSuggestImportsHosts.js",
 );
+
+/** @type {typeof import("./restartLanguageClient.js")} */
 const restartLanguageClient = require("./restartLanguageClient.js");
 
 /**
@@ -56,20 +74,20 @@ registerCommand(
 // Deno cache code action on an uncached import. The latter way isn’t working,
 // likely due to a Nova bug, see:
 // https://github.com/jaydenseric/nova-deno/issues/5
+// See: https://deno.land/manual/language_server/overview#commands
 registerCommand(
   "deno.cache",
-  async (
-    textEditor,
-    // The import module specifier URI to cache, provided by the Deno language
-    // server when this command is triggered via the Deno cache code action.
-    // See:
-    // https://github.com/denoland/deno/blob/main/cli/lsp/README.md#commands
-    uri,
-  ) => {
+  /**
+   * @param {TextEditor} textEditor
+   * @param {string} [uri] The import module specifier URI to cache, provided by
+   *   the Deno language server when this command is triggered via the Deno
+   *   cache code action.
+   */
+  async (textEditor, uri) => {
+    // See: https://deno.land/manual/language_server/overview#requests
     const params = {
-      referrer: {
-        uri: textEditor.document.uri,
-      },
+      referrer: { uri: textEditor.document.uri },
+      /** @type {Array<{ uri: string }>} */
       uris: [],
     };
 
@@ -86,6 +104,7 @@ registerCommand(
 
 registerCommand(
   "jaydenseric.deno.commands.denoFormatDocument",
+  /** @param {TextEditor} textEditor */
   (textEditor) => denoFormatTextEditor(languageClient, textEditor),
   "Deno format document error:",
 );
@@ -95,15 +114,21 @@ registerCommand(
 // as file paths. Such files must be watched for changes to restart the Deno
 // language client for it to detect the new file data.
 
+/** @type {FileSystemWatcher} */
 let importMapWatcher;
 
+/**
+ * @param {ConfigurationValue | null} [importMap] Source of an import map for
+ *   the project JavaScript and TypeScript modules; a URL or an absolute or
+ *   project relative file path.
+ */
 function updateImportMapWatcher(
   importMap = nova.workspace.config.get("deno.importMap"),
 ) {
   importMapWatcher?.dispose();
 
   if (
-    importMap &&
+    typeof importMap === "string" &&
     // The config `deno.importMap` can be a local file path or a remote URL.
     // Only a local file can be watched for changes to the contents.
     !specifierHasUriScheme(importMap)
@@ -115,14 +140,20 @@ function updateImportMapWatcher(
   }
 }
 
+/** @type {FileSystemWatcher} */
 let tsConfigWatcher;
 
+/**
+ * @param {ConfigurationValue | null} [config] Source of a TypeScript config
+ *   JSON file for the project JavaScript and TypeScript modules; an absolute or
+ *   project relative file path.
+ */
 function updateTsConfigWatcher(
   config = nova.workspace.config.get("deno.config"),
 ) {
   tsConfigWatcher?.dispose();
 
-  if (config) {
+  if (typeof config === "string") {
     tsConfigWatcher = nova.fs.watch(
       config,
       asyncCallback(() => resetDenoSuggestImportsHosts()),
@@ -130,9 +161,7 @@ function updateTsConfigWatcher(
   }
 }
 
-/**
- * Called when Nova activates the extension.
- */
+/** Called when Nova activates the extension. */
 exports.activate = asyncCallback(async () => {
   if (!nova.config.get("deno.suggest.imports.hosts")) {
     await resetDenoSuggestImportsHosts();
@@ -211,42 +240,55 @@ exports.activate = asyncCallback(async () => {
 
   languageClient.onNotification(
     "deno/registryState",
-    asyncCallback(async ({
-      origin,
+    asyncCallback(
+      /**
+       * @see https://deno.land/manual/language_server/overview#notifications
+       * @param {object} params
+       * @param {string} params.origin Origin.
+       * @param {boolean} params.suggestions Does the origin support import
+       *   IntelliSense.
+       */
+      async ({ origin, suggestions }) => {
+        if (suggestions && !pendingDenoSuggestImportsHostUpdates.has(origin)) {
+          /** @type {{ [key: string]: boolean } | null} */
+          // @ts-ignore Nova and `@types/nova-editor-node` don’t support map
+          // data structures in config.
+          const hosts = nova.config.get("deno.suggest.imports.hosts");
 
-      // Does the origin support import IntelliSense.
-      suggestions,
-    }) => {
-      if (suggestions && !pendingDenoSuggestImportsHostUpdates.has(origin)) {
-        const hosts = nova.config.get("deno.suggest.imports.hosts");
+          if (typeof hosts !== "object" || Array.isArray(hosts)) {
+            throw new TypeError(
+              "Config `deno.suggest.imports.hosts` must be a map.",
+            );
+          }
 
-        if (!hosts || !(origin in hosts)) {
-          pendingDenoSuggestImportsHostUpdates.add(origin);
+          if (!hosts || !(origin in hosts)) {
+            pendingDenoSuggestImportsHostUpdates.add(origin);
 
-          try {
-            if (suggestions) {
-              const { actionIdx } = await notify(
-                "jaydenseric.deno.notifications.importIntellisenseAvailable",
-                nova.localize("Import IntelliSense available for host"),
-                origin,
-                [
-                  nova.localize("Enable"),
-                  nova.localize("Disable"),
-                ],
-              );
+            try {
+              if (suggestions) {
+                const { actionIdx } = await notify(
+                  "jaydenseric.deno.notifications.importIntellisenseAvailable",
+                  nova.localize("Import IntelliSense available for host"),
+                  origin,
+                  [
+                    nova.localize("Enable"),
+                    nova.localize("Disable"),
+                  ],
+                );
 
-              await setNovaGlobalConfigMapEntry(
-                "deno.suggest.imports.hosts",
-                origin,
-                actionIdx === 0,
-              );
+                await setNovaGlobalConfigMapEntry(
+                  "deno.suggest.imports.hosts",
+                  origin,
+                  actionIdx === 0,
+                );
+              }
+            } finally {
+              pendingDenoSuggestImportsHostUpdates.delete(origin);
             }
-          } finally {
-            pendingDenoSuggestImportsHostUpdates.remove(origin);
           }
         }
-      }
-    }),
+      },
+    ),
   );
 
   languageClient.start();
@@ -262,7 +304,11 @@ exports.activate = asyncCallback(async () => {
   nova.workspace.onDidAddTextEditor((textEditor) => {
     textEditor.onWillSave(asyncCallback(async () => {
       if (
+        // The document has a syntax and isn’t plain text.
+        textEditor.document.syntax &&
+        // Format on save config is enabled.
         nova.workspace.config.get("jaydenseric.deno.formatOnSave", "boolean") &&
+        // Deno LSP supports the syntax.
         denoLspSyntaxes.includes(textEditor.document.syntax)
       ) {
         await denoFormatTextEditor(languageClient, textEditor);

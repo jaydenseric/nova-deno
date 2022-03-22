@@ -1,5 +1,22 @@
 # Nova Deno extension changelog
 
+## Next
+
+### Patch
+
+- Added VS Code config to the project.
+- Stopped using Deno `unstable` mode for the project.
+- Added a project import map, used for tests.
+- Updated the Deno `std` version used in tests.
+- Added `@ts-check` comments to modules, referenced
+  [`@types/nova-editor-node`](https://npm.im/@types/nova-editor-node), and fixed
+  various issues revealed by TypeScript.
+- Changed the test module file extensions from `.js` to `.mjs`.
+- Use a new class `Defer` to streamline deferred promises in both the
+  implementation and tests.
+- The extension now creates a missing global config file during initialization
+  or running certain commands, instead of hanging or erroring.
+
 ## 1.2.2
 
 ### Patch

@@ -1,3 +1,7 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
+/** @type {typeof import("./lspRangeToNovaRange.js")} */
 const lspRangeToNovaRange = require("./lspRangeToNovaRange.js");
 
 /**

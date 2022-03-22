@@ -56,7 +56,7 @@ deno lint
 ### Test
 
 ```
-deno test --allow-read --unstable
+deno test --allow-read --import-map=importMap.json
 ```
 
 [Deno]: https://deno.land "Deno website"

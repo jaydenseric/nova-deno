@@ -1,4 +1,4 @@
 {
-  "deno.unstable": true,
+  "deno.importMap": "importMap.json",
   "workspace.name": "nova-deno"
 }

@@ -1,9 +1,12 @@
+// @ts-check
+/// <reference path="https://unpkg.com/@types/nova-editor-node@4.1.4/index.d.ts" />
+
 /**
  * Creates a Nova notification.
  * @param {string} identifier Notification identifier.
  * @param {string} title Notification title text.
  * @param {string} body Notification body text.
- * @param {Array<string>} Notification action button labels.
+ * @param {Array<string>} [actions] Notification action button labels.
  * @returns {Promise<NotificationResponse>} Resolves the notification response from the user.
  */
 // deno-lint-ignore require-await

@@ -1,3 +1,6 @@
+// @ts-check
+
+/** @type {typeof import("./setNovaGlobalConfig.js")} */
 const setNovaGlobalConfig = require("./setNovaGlobalConfig.js");
 
 /**
